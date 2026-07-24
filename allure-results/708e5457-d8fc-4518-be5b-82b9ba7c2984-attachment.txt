@@ -1,0 +1,4 @@
+Exception occure while filling First Name :Error: locator.pressSequentially: Target page, context or browser has been closed
+Call log:
+  - waiting for locator('#input-firstname')
+

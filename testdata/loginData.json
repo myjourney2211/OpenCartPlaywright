@@ -1,0 +1,26 @@
+[
+  {
+    "testname": "Valid login",
+    "email": "testagent@test.com",
+    "password": "Password@1234567890",
+    "expected": "Success"
+  },
+  {
+    "testname": "Invalid username",
+    "email": "testagent456@test.com",
+    "password": "Password@1234567890",
+    "expected": "Failure"
+  },
+  {
+    "testname": "Invalid Password",
+    "email": "testagent@test.com",
+    "password": "Password@12345",
+    "expected": "Failure"
+  },
+  {
+    "testname": "Invalid username and password",
+    "email": "testagent789@test.com",
+    "password": "Password@12345",
+    "expected": "Failure"
+  }
+]
