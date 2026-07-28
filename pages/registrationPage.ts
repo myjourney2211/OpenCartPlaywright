@@ -12,6 +12,12 @@ export class registrationPage {
     private readonly chkPolicy: Locator;
     private readonly btnContinue: Locator;
     private readonly msgConfirmation: Locator;
+    private readonly msgErrorFirstName: Locator;
+    private readonly msgErrorLastName: Locator;
+    private readonly msgErrorEmail: Locator;
+    private readonly msgErrorTelephone: Locator;
+    private readonly msgErrorPassword: Locator;
+    private readonly msgErrorPrivacyPolicy: Locator;
 
     //constructor
     constructor(page: Page) {
@@ -25,6 +31,12 @@ export class registrationPage {
         this.chkPolicy = this.page.locator("input[name='agree']");
         this.btnContinue = this.page.locator("input[value='Continue']");
         this.msgConfirmation = this.page.locator("div[id='content'] h1");
+        this.msgErrorFirstName = this.page.locator("div.text-danger", { hasText: "First Name" });
+        this.msgErrorLastName = this.page.locator("div.text-danger", { hasText: "Last Name" });
+        this.msgErrorEmail = this.page.locator("div.text-danger", { hasText: "E-Mail Address does not" });
+        this.msgErrorTelephone = this.page.locator("div.text-danger", { hasText: "Telephone must be" });
+        this.msgErrorPassword = this.page.locator("div.text-danger", { hasText: "Password must be" });
+        this.msgErrorPrivacyPolicy = this.page.locator("div.alert.alert-danger.alert-dismissible");
     }
 
     //methods
@@ -109,7 +121,7 @@ export class registrationPage {
         }
     }
 
-    async completeRegistration(fname: string, lname:string, email:string, telephone:string, password:string) {
+    async completeRegistration(fname: string, lname: string, email: string, telephone: string, password: string) {
 
         await this.setFirstName(fname);
         await this.setLastName(lname);
@@ -121,4 +133,57 @@ export class registrationPage {
         await this.clickContinueButton();
     }
 
+    async getErrorMsgFirstName(): Promise<string | null> {
+        try {
+            return await this.msgErrorFirstName.textContent();
+        } catch (error) {
+            console.log(`Error during First Name Error Message : ${error}`);
+            throw (error);
+        }
+    }
+
+    async getErrorMsgLastName(): Promise<string | null> {
+        try {
+            return await this.msgErrorLastName.textContent();
+        } catch (error) {
+            console.log(`Error during Last Name Error Message : ${error}`);
+            throw (error);
+        }
+    }
+
+    async getErrorMsgEmail(): Promise<string | null> {
+        try {
+            return await this.msgErrorEmail.textContent();
+        } catch (error) {
+            console.log(`Error during Email Error Message : ${error}`);
+            throw (error);
+        }
+    }
+
+    async getErrorMsgTelephone(): Promise<string | null> {
+        try {
+            return await this.msgErrorTelephone.textContent();
+        } catch (error) {
+            console.log(`Error during Telephone Error Message : ${error}`);
+            throw (error);
+        }
+    }
+
+    async getErrorMsgPassword(): Promise<string | null> {
+        try {
+            return await this.msgErrorPassword.textContent();
+        } catch (error) {
+            console.log(`Error during Password Error Message : ${error}`);
+            throw (error);
+        }
+    }
+
+    async getErrorMsgCheckPolicy(): Promise<string | null> {
+        try {
+            return await this.msgErrorPrivacyPolicy.textContent();
+        } catch (error) {
+            console.log(`Error during Check Policy Error Message : ${error}`);
+            throw (error);
+        }
+    }
 }

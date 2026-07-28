@@ -1,5 +1,6 @@
 import { Page, Locator } from "@playwright/test";
 import { myAccountPage } from "./myAccountPage";
+import { forgotPasswordPage } from "./forgotPasswordPage";
 
 export class loginPage {
 
@@ -10,6 +11,7 @@ export class loginPage {
     private readonly txtPassword: Locator;
     private readonly btnLogin: Locator;
     private readonly txtErrorMessage: Locator;
+    private readonly lnkForgottenPassword: Locator;
 
     //constructor
     constructor(page: Page) {
@@ -19,6 +21,7 @@ export class loginPage {
         this.txtPassword = page.locator("#input-password");
         this.btnLogin = page.locator("input[value='Login']");
         this.txtErrorMessage = page.locator(".alert.alert-danger.alert-dismissible");
+        this.lnkForgottenPassword = page.locator("div[class='form-group'] a");
     }
 
     //method
@@ -66,6 +69,25 @@ export class loginPage {
             return new myAccountPage(this.page);
         } catch (error) {
             console.log(`Exception Occured while login : ${error}`);
+            throw (error);
+        }
+    }
+
+    async isForgottenPasswordAvailable(): Promise<boolean> {
+        try {
+            return await this.lnkForgottenPassword.isVisible();
+        } catch (error) {
+            console.log(`Exception Occured for Forgotten Password Visibility : ${error}`);
+            throw (error);
+        }
+    }
+
+    async clickForgottenPassword(): Promise<forgotPasswordPage> {
+        try {
+            await this.lnkForgottenPassword.click();
+            return new forgotPasswordPage(this.page);
+        } catch (error) {
+            console.log(`Exception Occured during click of Forgotten Password : ${error}`);
             throw (error);
         }
     }

@@ -8,6 +8,7 @@ export class homePage {
     private readonly lnkLogin: Locator;
     private readonly txtSearchBox: Locator;
     private readonly btnSearch: Locator;
+    private readonly lnkLogout: Locator;
 
     //constructos
     constructor(page: Page) {
@@ -17,10 +18,10 @@ export class homePage {
         this.lnkLogin = this.page.locator("a[href='https://tutorialsninja.com/demo/index.php?route=account/login']");
         this.txtSearchBox = this.page.locator("input[placeholder='Search']");
         this.btnSearch = this.page.locator("button[class='btn btn-default btn-lg']");
+        this.lnkLogout = this.page.locator("a[href='https://tutorialsninja.com/demo/index.php?route=account/logout']");
     }
 
     //action methods
-
     async isHomePageExists() {
         let title = await this.page.title();
         if (title == "Your Store") {
@@ -80,6 +81,15 @@ export class homePage {
             await this.clickLogin();
         } catch (error) {
             console.log(`Error during Login page navigation : ${error}`);
+            throw (error);
+        }
+    }
+
+    async isLogoutLinkAvailable(): Promise<boolean> {
+        try {
+            return await this.lnkLogout.isVisible();
+        } catch (error) {
+            console.log(`Exception during Logout link visibility : ${error}`);
             throw (error);
         }
     }

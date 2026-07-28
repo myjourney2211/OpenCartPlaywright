@@ -22,5 +22,11 @@
     "email": "testagent789@test.com",
     "password": "Password@12345",
     "expected": "Failure"
+  },
+  {
+    "testname": "No username and No password",
+    "email": "",
+    "password": "",
+    "expected": "Failure"
   }
 ]
