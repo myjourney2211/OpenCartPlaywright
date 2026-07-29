@@ -12,6 +12,7 @@ export class loginPage {
     private readonly btnLogin: Locator;
     private readonly txtErrorMessage: Locator;
     private readonly lnkForgottenPassword: Locator;
+    private readonly txtEmailLinkSent: Locator;
 
     //constructor
     constructor(page: Page) {
@@ -22,6 +23,7 @@ export class loginPage {
         this.btnLogin = page.locator("input[value='Login']");
         this.txtErrorMessage = page.locator(".alert.alert-danger.alert-dismissible");
         this.lnkForgottenPassword = page.locator("div[class='form-group'] a");
+        this.txtEmailLinkSent = page.locator(".alert.alert-success.alert-dismissible");
     }
 
     //method
@@ -88,6 +90,15 @@ export class loginPage {
             return new forgotPasswordPage(this.page);
         } catch (error) {
             console.log(`Exception Occured during click of Forgotten Password : ${error}`);
+            throw (error);
+        }
+    }
+
+    async getForgotSuccessMessage(): Promise<string | null> {
+        try {
+            return await this.txtEmailLinkSent.textContent();
+        } catch (error) {
+            console.log(`Exception Occured while returning Forgot success message : ${error}`);
             throw (error);
         }
     }

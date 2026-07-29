@@ -26,7 +26,7 @@ test.afterEach(async ({ page }) => {
     await page.close();
 })
 
-test("Login Test @sanity @master", async () => {
+test("Forgot Password Visibility Test @sanity @master", async () => {
     await home.clickMyAccount();
     await home.clickLogin();
 

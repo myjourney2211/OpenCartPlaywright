@@ -59,6 +59,7 @@ export class homePage {
 
     async enterProductName(pName: string) {
         try {
+            await this.txtSearchBox.clear();
             await this.txtSearchBox.pressSequentially(pName);
         } catch (error) {
             console.log(`Exception Occured while entering product name : ${error}`);

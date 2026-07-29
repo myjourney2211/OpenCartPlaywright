@@ -1,5 +1,6 @@
 import { Page, Locator } from "@playwright/test";
 import { shoppingCartPage } from "./shoppingCartPage";
+import { prodComaparisonPage } from "./prodComparisonPage";
 
 export class productPage {
 
@@ -10,6 +11,8 @@ export class productPage {
     private readonly cnfMsg: Locator;
     private readonly btnItems: Locator;
     private readonly lnkViewCart: Locator;
+    private readonly btnCompareProduct: Locator;
+    private readonly lnkComaprisonPage: Locator;
 
     //constructor
     constructor(page: Page) {
@@ -21,6 +24,8 @@ export class productPage {
         this.cnfMsg = page.locator("div.alert.alert-success.alert-dismissible");
         this.btnItems = page.locator("div#cart");
         this.lnkViewCart = page.locator("strong:has-text('View Cart')");
+        this.btnCompareProduct = page.locator("#product-product div.btn-group button:nth-child(2)");
+        this.lnkComaprisonPage = page.locator("div.alert.alert-success.alert-dismissible a[href*='route=product/compare']");
     }
 
     //methods
@@ -82,4 +87,34 @@ export class productPage {
             throw (error);
         }
     }
+
+    async clickCompareProduct() {
+        try {
+            await this.btnCompareProduct.click();
+        } catch (error) {
+            console.log(`Exception during click of Compare Product : ${error}`);
+            throw (error);
+        }
+    }
+    async isCompareSuccessMsgVisible(): Promise<boolean> {
+        try {
+            let msg: string | null = await this.cnfMsg.textContent();
+            return msg?.includes("product comparison") ?? false;
+        } catch (error) {
+            console.log(`Success messsage not found : ${error}`);
+            throw (error);
+        }
+    }
+
+    async naviageProdComaparisonPage(): Promise<prodComaparisonPage> {
+        try {
+            await this.lnkComaprisonPage.click();
+            return new prodComaparisonPage(this.page);
+        } catch (error) {
+            console.log(`Exception during navigating to Product Comparison Page : ${error}`);
+            throw (error);
+        }
+    }
+
+
 }

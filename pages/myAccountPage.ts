@@ -1,5 +1,6 @@
 import { Page, Locator } from "@playwright/test";
 import { logOut } from "./logOut";
+import { homePage } from "./homePage";
 
 export class myAccountPage {
 
@@ -8,6 +9,7 @@ export class myAccountPage {
     //variables
     private readonly msgHeading: Locator;
     private readonly lnklogout: Locator;
+    private readonly lnkHome: Locator;
 
     //constructor
     constructor(page: Page) {
@@ -15,6 +17,7 @@ export class myAccountPage {
 
         this.msgHeading = page.locator('h2:has-text("My Account")');
         this.lnklogout = page.getByText("Logout").nth(1);
+        this.lnkHome = page.locator("div[id='logo'] a[href*='route=common/home']");
     }
 
     //methods
@@ -44,6 +47,16 @@ export class myAccountPage {
             return (this.page.title());
         } catch (error) {
             console.log(`Error returning the title of My Account page : ${error}`);
+            throw (error);
+        }
+    }
+
+    async clickHome(): Promise<homePage> {
+        try {
+            await this.lnkHome.click();
+            return new homePage(this.page);
+        } catch (error) {
+            console.log(`Exception during click of Home link :${error}`);
             throw (error);
         }
     }

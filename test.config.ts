@@ -4,6 +4,7 @@ export class TestConfig {
     //valid login credentials- create your own login account
     email = "testagent@test.com"
     password = "Password@1234567890"
+    invalidPassowrd = "Password@12345678"
 
     //product details
     productName1 = "iPhone"
@@ -13,4 +14,8 @@ export class TestConfig {
     productName2 = "iPod Nano"
     productQuantity2 = "2"
     totalPrice2 = "$244.00"
+
+    productName3 = "fitbit" //Non-existent product
+
+    productName4 = "" //No Pruct Name provided during search
 }

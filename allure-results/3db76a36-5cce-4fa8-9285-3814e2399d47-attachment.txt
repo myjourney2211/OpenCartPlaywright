@@ -1,0 +1,7 @@
+Exception during click of Compare Product : Error: locator.click: Error: strict mode violation: locator('button[data-original-title*=\'Compare this Product\']') resolved to 2 elements:
+    1) <button title="" type="button" data-toggle="tooltip" class="btn btn-default" onclick="compare.add('40');" data-original-title="Compare this Product">…</button> aka getByRole('button').nth(4)
+    2) <button title="" type="button" data-toggle="tooltip" onclick="compare.add('42');" data-original-title="Compare this Product">…</button> aka getByRole('button').filter({ hasText: /^$/ }).nth(4)
+
+Call log:
+  - waiting for locator('button[data-original-title*=\'Compare this Product\']')
+
