@@ -13,6 +13,12 @@ export class productPage {
     private readonly lnkViewCart: Locator;
     private readonly btnCompareProduct: Locator;
     private readonly lnkComaprisonPage: Locator;
+    private readonly txtProductName: Locator;
+    private readonly txtBrand: Locator;
+    private readonly txtProductCode: Locator;
+    private readonly txtPrice: Locator;
+    private readonly txtAvailability: Locator;
+    private readonly txtExclTaxPrice: Locator;
 
     //constructor
     constructor(page: Page) {
@@ -26,6 +32,12 @@ export class productPage {
         this.lnkViewCart = page.locator("strong:has-text('View Cart')");
         this.btnCompareProduct = page.locator("#product-product div.btn-group button:nth-child(2)");
         this.lnkComaprisonPage = page.locator("div.alert.alert-success.alert-dismissible a[href*='route=product/compare']");
+        this.txtProductName = page.locator("div#content h1");
+        this.txtBrand = page.locator("a[href*='route=product/manufacturer/info&manufacturer_id']");
+        this.txtProductCode = page.getByText('Product Code');
+        this.txtPrice = page.locator("ul.list-unstyled li h2");
+        this.txtExclTaxPrice = page.getByText('Ex Tax');
+        this.txtAvailability = page.getByText('Availability');
     }
 
     //methods
@@ -116,5 +128,57 @@ export class productPage {
         }
     }
 
+    async getProductName(): Promise<string | null> {
+        try {
+            return await this.txtProductName.textContent();
+        } catch (error) {
+            console.log(`Exception while getting Product Name: ${error}`);
+            throw (error);
+        }
+    }
 
+    async getBrandName(): Promise<string | null> {
+        try {
+            return await this.txtBrand.textContent();
+        } catch (error) {
+            console.log(`Exception while getting Brand Name: ${error}`);
+            throw (error);
+        }
+    }
+
+    async getProductCode(): Promise<string | null> {
+        try {
+            return await this.txtProductCode.textContent();
+        } catch (error) {
+            console.log(`Exception while getting Product Code: ${error}`);
+            throw (error);
+        }
+    }
+
+    async getProductPrice(): Promise<string | null> {
+        try {
+            return await this.txtPrice.textContent();
+        } catch (error) {
+            console.log(`Exception while getting Product Price: ${error}`);
+            throw (error);
+        }
+    }
+
+    async getProductPriceExcludingTax(): Promise<string | null> {
+        try {
+            return await this.txtExclTaxPrice.textContent();
+        } catch (error) {
+            console.log(`Exception while getting Product Price Excluding Tax: ${error}`);
+            throw (error);
+        }
+    }
+
+    async getProductAvailability(): Promise<string | null> {
+        try {
+            return await this.txtAvailability.textContent();
+        } catch (error) {
+            console.log(`Exception while getting Product Availability: ${error}`);
+            throw (error);
+        }
+    }
 }

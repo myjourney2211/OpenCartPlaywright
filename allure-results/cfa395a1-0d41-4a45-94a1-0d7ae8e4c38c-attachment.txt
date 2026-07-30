@@ -1,0 +1,1 @@
+Exception Occured while entering product name : Error: locator.pressSequentially: text: expected string, got undefined

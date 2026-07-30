@@ -1,0 +1,20 @@
+[
+  {
+    "testname": "Test1",
+    "productname": "iPod Classic",
+    "brand": "Apple",
+    "productcode": "Product Code:product 20",
+    "price": "$122.00",
+    "availability": "Out Of Stock",
+    "priceextax": "$100.00"
+  },
+  {
+    "testname": "Test2",
+    "productname": "iPod Nano",
+    "brand": "Apple",
+    "productcode": "Product Code:Product 9",
+    "price": "$122.00",
+    "availability": "2-3 Days",
+    "priceextax": "$100.00"
+  }
+]

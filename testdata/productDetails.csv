@@ -1,0 +1,3 @@
+testname,productname,brand,productcode,price,availability,priceextax
+Test1,iPod Classic,Apple,Product Code:product 20,$122.00,Out Of Stock,$100.00
+Test2,iPod Nano,Apple,Product Code:Product 9,$122.00,2-3 Days,$100.00
