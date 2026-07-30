@@ -13,6 +13,7 @@ export class searchResultPage {
     private readonly btnListView: Locator;
     private readonly cnfMsg: Locator;
     private readonly lnkComaprisonPage: Locator;
+    private readonly btnAddToWishlist: Locator;
 
     //constructor
     constructor(page: Page) {
@@ -24,6 +25,7 @@ export class searchResultPage {
         this.btnListView = page.locator("#list-view");
         this.cnfMsg = page.locator("div.alert.alert-success.alert-dismissible");
         this.lnkComaprisonPage = page.locator("div.alert.alert-success.alert-dismissible a[href*='route=product/compare']");
+        this.btnAddToWishlist = page.locator("button[data-original-title*='Add to Wish List'] i");
     }
 
     //method
@@ -111,12 +113,39 @@ export class searchResultPage {
         }
     }
 
+        async isWishListSuccessMsgVisible(): Promise<boolean> {
+        try {
+            let msg: string | null = await this.cnfMsg.textContent();
+            return msg?.includes("wish list") ?? false;
+        } catch (error) {
+            console.log(`Success messsage not found : ${error}`);
+            throw (error);
+        }
+    }
+
     async naviageProdComaparisonPage(): Promise<prodComaparisonPage> {
         try {
             await this.lnkComaprisonPage.click();
             return new prodComaparisonPage(this.page);
         } catch (error) {
             console.log(`Exception during navigating to Product Comparison Page : ${error}`);
+            throw (error);
+        }
+    }
+
+    async clickAddToWishlist(productName: string): Promise<void> {
+        try {
+            const products = await this.searchProducts.all();
+            const count = products.length;
+
+            for (let i = 0; i < count; i++) {
+                let prodName1 = await products[i].textContent();
+                if (prodName1?.toLowerCase() === productName.toLowerCase()) {
+                    await this.btnAddToWishlist.nth(i).click();
+                }
+            }
+        } catch (error) {
+            console.log(`Error during Add To Cart from Wishlist : ${error}`);
             throw (error);
         }
     }

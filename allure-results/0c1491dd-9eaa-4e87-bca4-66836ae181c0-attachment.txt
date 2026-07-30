@@ -1,0 +1,7 @@
+1
+iPhone
+0
+Exception during navigation to Shopping Cart from Wishlist Page : Error: locator.click: Unsupported token "{" while parsing css selector "page.getByText('shopping cart', { exact: true })". Did you mean to CSS.escape it?
+Call log:
+  - waiting for page.getByText('shopping cart', { exact: true })
+

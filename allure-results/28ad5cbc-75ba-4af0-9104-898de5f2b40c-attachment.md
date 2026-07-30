@@ -1,0 +1,122 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: AddToWishlist.spec.ts >> Add to Wishlist Test @sanity @master
+- Location: tests\AddToWishlist.spec.ts:40:5
+
+# Error details
+
+```
+TimeoutError: locator.click: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator('td[class=\'text-right\'] button').nth(2)
+
+```
+
+# Test source
+
+```ts
+  1  | import { Page, Locator } from "@playwright/test";
+  2  | import { shoppingCartPage } from "./shoppingCartPage";
+  3  | 
+  4  | export class wishlistPage {
+  5  |     private readonly page: Page;
+  6  |     //variables
+  7  |     private readonly lblMyWishlist: Locator;
+  8  |     private readonly btnAddToCart: Locator;
+  9  |     private readonly btnRemove: Locator;
+  10 |     private readonly btnContinue: Locator;
+  11 |     private readonly lnkproduct: Locator;
+  12 |     private readonly cnfMsg: Locator;
+  13 |     private readonly lnkShoppingCart: Locator;
+  14 | 
+  15 |     //constructor
+  16 |     constructor(page: Page) {
+  17 |         this.page = page;
+  18 |         this.lblMyWishlist = this.page.locator("div[id='content'] h2");
+  19 |         this.btnAddToCart = this.page.locator("td[class='text-right'] button");
+  20 |         this.btnRemove = this.page.locator(".btn.btn-danger");
+  21 |         this.btnContinue = this.page.locator("a[class='btn btn-primary']");
+  22 |         this.lnkproduct = this.page.locator("td[class='text-left'] a");
+  23 |         this.cnfMsg = this.page.locator(".alert.alert-success.alert-dismissible")
+  24 |         this.lnkShoppingCart = this.page.locator("page.getByText('shopping cart', { exact: true })");
+  25 | 
+  26 |     }
+  27 | 
+  28 |     //methods
+  29 |     async isProductExists(prodName: string): Promise<boolean> {
+  30 |         try {
+  31 |             const actualProduct = await this.lnkproduct.all();
+  32 |             for (let prod of actualProduct) {
+  33 |                 let prodName1 = await prod.textContent()
+  34 |                 if (prodName1?.toLowerCase() === prodName.toLowerCase()) {
+  35 |                     return true;
+  36 |                 }
+  37 |             }
+  38 |         } catch (error) {
+  39 |             console.log(`Exception in My Wishlist :${error}`);
+  40 |             throw (error);
+  41 |         }
+  42 |         return false;
+  43 |     }
+  44 | 
+  45 |     async isMyWishlistPageExists(): Promise<string | null> {
+  46 |         try {
+  47 |             return await this.lblMyWishlist.textContent();
+  48 |         } catch (error) {
+  49 |             console.log(`Exception during My Wishlist Page :${error}`);
+  50 |             throw (error);
+  51 |         }
+  52 |     }
+  53 | 
+  54 |     async selectAddToCart(productName: string) {
+  55 |         try {
+  56 |             const products = await this.lnkproduct.all();
+  57 |             const count = products.length;
+  58 |             console.log(count);
+  59 | 
+  60 |             for (let i = 0; i < count; i++) {
+  61 |                 let prodName1 = await products[i].textContent();
+  62 |                 console.log(prodName1);
+  63 |                 if (prodName1?.toLowerCase() === productName.toLowerCase()){
+  64 |                     console.log(i);
+> 65 |                     await this.btnAddToCart.nth(i).click();
+     |                                                    ^ TimeoutError: locator.click: Timeout 15000ms exceeded.
+  66 |                 }
+  67 |             }
+  68 |         } catch (error) {
+  69 |             console.log(`Error during Add To Cart from Wishlist : ${error}`);
+  70 |             throw (error);
+  71 |         }
+  72 |         return null;
+  73 |     }
+  74 | 
+  75 |     async isSuccessMsgVisible(): Promise<boolean> {
+  76 |         try {
+  77 |             let msg: string | null = await this.cnfMsg.textContent();
+  78 |             return msg?.includes("Success: You have added") ?? false;
+  79 |         } catch (error) {
+  80 |             console.log(`Success messsage not found : ${error}`);
+  81 |             throw (error);
+  82 |         }
+  83 |     }
+  84 | 
+  85 |     async goToShoppingCart(): Promise<shoppingCartPage> {
+  86 |         try {
+  87 |             await this.lnkShoppingCart.click();
+  88 |             return new shoppingCartPage(this.page);
+  89 |         } catch (error) {
+  90 |             console.log(`Exception during navigation to Shopping Cart from Wishlist Page : ${error}`);
+  91 |             throw (error);
+  92 |         }
+  93 |     }
+  94 | 
+  95 | }
+  96 | 
+  97 | 
+```

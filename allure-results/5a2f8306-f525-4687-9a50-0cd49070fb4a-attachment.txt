@@ -1,0 +1,5 @@
+3
+Error during Add To Cart from Wishlist : TimeoutError: locator.click: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator('button[onclick*=\'cart.add\']').nth(3)
+

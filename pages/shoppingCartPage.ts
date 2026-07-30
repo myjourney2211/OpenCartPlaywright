@@ -6,6 +6,7 @@ export class shoppingCartPage {
     //variables
     private readonly lblTotalProice: Locator;
     private readonly btnCheckout: Locator;
+    private readonly lnkProducts: Locator;
 
     //constructor
     constructor(page: Page) {
@@ -13,6 +14,7 @@ export class shoppingCartPage {
         //Initialize the variables
         this.lblTotalProice = page.locator("div.col-sm-4.col-sm-offset-8 table tr:nth-child(4) td:nth-child(2)");
         this.btnCheckout = page.locator("a.btn.btn-primary");
+        this.lnkProducts = page.locator("div[class='table-responsive'] table[class='table table-bordered'] tbody td:nth-child(2) a");
     }
 
     //methods
@@ -42,5 +44,22 @@ export class shoppingCartPage {
             console.log(`Error during Checkout page Loading : ${error}`);
             throw (error);
         }
+    }
+
+    async isProductExists(productName: String): Promise<boolean> {
+        try {
+            let products = await this.lnkProducts.all();
+
+            for (let product of products) {
+                let prod1 = await product.textContent();
+                if (prod1?.toLowerCase() === productName.toLowerCase()) {
+                    return true;
+                }
+            }
+        } catch (error) {
+            console.log(': ${error}');
+            throw (error);
+        }
+        return false;
     }
 }

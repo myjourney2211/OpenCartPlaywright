@@ -1,4 +1,5 @@
 import { Page, Locator } from "@playwright/test";
+import { wishlistPage } from "./wishlishPage";
 
 export class homePage {
     //variables
@@ -9,6 +10,7 @@ export class homePage {
     private readonly txtSearchBox: Locator;
     private readonly btnSearch: Locator;
     private readonly lnkLogout: Locator;
+    private readonly lnkWishlist: Locator;
 
     //constructos
     constructor(page: Page) {
@@ -19,6 +21,7 @@ export class homePage {
         this.txtSearchBox = this.page.locator("input[placeholder='Search']");
         this.btnSearch = this.page.locator("button[class='btn btn-default btn-lg']");
         this.lnkLogout = this.page.locator("a[href='https://tutorialsninja.com/demo/index.php?route=account/logout']");
+        this.lnkWishlist = this.page.locator('span:has-text("Wish List")');
     }
 
     //action methods
@@ -35,6 +38,16 @@ export class homePage {
             await this.lnkMyAccount.click();
         } catch (error) {
             console.log(`Exception Occured while clicking 'My Account' : ${error}`);
+            throw error;
+        }
+    }
+
+    async goToMyWishlistPage(): Promise<wishlistPage> {
+        try {
+            await this.lnkWishlist.click();
+            return new wishlistPage(this.page);
+        } catch (error) {
+            console.log(`Exception Occured while clicking 'Wishlist' : ${error}`);
             throw error;
         }
     }
