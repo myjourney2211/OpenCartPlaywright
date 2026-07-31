@@ -18,4 +18,8 @@ export class TestConfig {
     productName3 = "fitbit" //Non-existent product
 
     productName4 = "" //No Pruct Name provided during search
+
+    productName5 = "Apple"
+
+    productName6 = 'Apple Cinema 30"'
 }

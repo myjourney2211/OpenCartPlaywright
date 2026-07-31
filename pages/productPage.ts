@@ -1,6 +1,7 @@
 import { Page, Locator } from "@playwright/test";
 import { shoppingCartPage } from "./shoppingCartPage";
 import { prodComaparisonPage } from "./prodComparisonPage";
+import { wishlistPage } from "./wishlishPage";
 
 export class productPage {
 
@@ -19,6 +20,10 @@ export class productPage {
     private readonly txtPrice: Locator;
     private readonly txtAvailability: Locator;
     private readonly txtExclTaxPrice: Locator;
+    private readonly lblRelatedProductSection: Locator;
+    private readonly lnkRelatedProducts: Locator;
+    private readonly btnAddToWishlistFromRelateProduct: Locator;
+    private readonly lnkWishListPage: Locator;
 
     //constructor
     constructor(page: Page) {
@@ -38,6 +43,10 @@ export class productPage {
         this.txtPrice = page.locator("ul.list-unstyled li h2");
         this.txtExclTaxPrice = page.getByText('Ex Tax');
         this.txtAvailability = page.getByText('Availability');
+        this.lblRelatedProductSection = page.getByText('Related Products');
+        this.lnkRelatedProducts = page.locator("div.caption h4 a");
+        this.btnAddToWishlistFromRelateProduct = page.locator("div[class='button-group'] button[data-original-title*='Add to Wish List'] i");
+        this.lnkWishListPage = page.locator("div[class*='alert alert-success'] a[href*='route=account/wishlist']");
     }
 
     //methods
@@ -51,8 +60,9 @@ export class productPage {
         }
     }
 
-    async addToCart() {
+    async addToCart(): Promise<void> {
         try {
+            await this.btnAddToCart.waitFor({ state: 'visible', timeout: 10000 });
             await this.btnAddToCart.click();
         } catch (error) {
             console.log(`Error during click of Add To Cart : ${error}`);
@@ -112,6 +122,7 @@ export class productPage {
     }
     async isCompareSuccessMsgVisible(): Promise<boolean> {
         try {
+            await this.cnfMsg.waitFor({ state: 'visible', timeout: 10000 });
             let msg: string | null = await this.cnfMsg.textContent();
             return msg?.includes("product comparison") ?? false;
         } catch (error) {
@@ -180,6 +191,69 @@ export class productPage {
             return await this.txtAvailability.textContent();
         } catch (error) {
             console.log(`Exception while getting Product Availability: ${error}`);
+            throw (error);
+        }
+    }
+
+    async isRelatedProductSectionAvailable(): Promise<boolean> {
+        try {
+            return await this.lblRelatedProductSection.isVisible();
+        } catch (error) {
+            console.log(`Exception during Related Product Visibility : ${error}`);
+            throw (error);
+        }
+    }
+
+    async isRelatedProductExists(productName: string): Promise<boolean> {
+        try {
+            const products = await this.lnkRelatedProducts.all();
+            for (const product of products) {
+                let prodName = await product.textContent();
+                if (prodName?.toLowerCase === productName.toLowerCase) {
+                    return true;
+                }
+            }
+        } catch (error) {
+            console.log(`Exception during Related Product exists : ${error}`);
+            throw (error);
+        }
+        return false;
+    }
+
+    async selectAddToWishListFromRelatedProduct(productName: string): Promise<null> {
+        try {
+            const products = await this.lnkRelatedProducts.all();
+            const count = products.length;
+            for (let i = 0; i < count; i++) {
+                let prodName = await products[i].textContent();
+                if (prodName?.toLowerCase() === productName.toLowerCase()) {
+                    await this.btnAddToWishlistFromRelateProduct.nth(i).click();
+                }
+            }
+        } catch (error) {
+            console.log(`Error during selecting Product : ${error}`);
+            throw (error);
+        }
+        return null;
+    }
+
+    async isWishlistSuccessMsgVisible(): Promise<boolean> {
+        try {
+            await this.cnfMsg.waitFor({ state: 'visible', timeout: 10000 });
+            let msg: string | null = await this.cnfMsg.textContent();
+            return msg?.includes("wish list") ?? false;
+        } catch (error) {
+            console.log(`Success messsage not found : ${error}`);
+            throw (error);
+        }
+    }
+
+    async navigateWishListPage(): Promise<wishlistPage> {
+        try {
+            await this.lnkWishListPage.click();
+            return new wishlistPage(this.page);
+        } catch (error) {
+            console.log(`Exception during navigating to WishList Page : ${error}`);
             throw (error);
         }
     }

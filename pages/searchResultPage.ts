@@ -113,7 +113,7 @@ export class searchResultPage {
         }
     }
 
-        async isWishListSuccessMsgVisible(): Promise<boolean> {
+    async isWishListSuccessMsgVisible(): Promise<boolean> {
         try {
             let msg: string | null = await this.cnfMsg.textContent();
             return msg?.includes("wish list") ?? false;

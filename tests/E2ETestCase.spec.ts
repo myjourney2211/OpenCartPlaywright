@@ -61,7 +61,7 @@ test.afterEach(async ({ page }) => {
 })
 
 //test
-test("End To End Test @master @E2ETest", async ({ page }) => {
+test("End To End Test @master @E2ETest @vj", async ({ page }) => {
 
     //✍️ Register a new account
     await home.clickMyAccount();

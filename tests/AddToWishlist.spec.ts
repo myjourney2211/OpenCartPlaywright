@@ -81,18 +81,4 @@ test("Add to Wishlist Test @sanity @master", async ({ page }) => {
     expect(await shopCartPg.isViewCartPageLoaded()).toBeTruthy();
 
     expect(await shopCartPg.isProductExists(config.productName1)).toBeTruthy();
-
-
-/*     await searchPg.selectProduct(config.productName1);
-
-    await prodPg.clickCompareProduct();
-
-    expect(await prodPg.isCompareSuccessMsgVisible()).toBe(true);
-
-    await prodPg.naviageProdComaparisonPage();
-
-    expect(await prodCompPg.isProductComparisonPageExists()).toContain("Product Comparison");
-
-    expect(await prodCompPg.isProductExists(config.productName1)).toBe(true); */
-
 })

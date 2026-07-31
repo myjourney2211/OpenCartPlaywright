@@ -11,6 +11,11 @@ export class homePage {
     private readonly btnSearch: Locator;
     private readonly lnkLogout: Locator;
     private readonly lnkWishlist: Locator;
+    private readonly lblFeatured: Locator;
+    private readonly lnkFeaturedProducts: Locator;
+    private readonly btnAddToWishlistFromFeaturedProduct: Locator;
+    private readonly cnfMsg: Locator;
+    private readonly lnkWishListPageFromMsg: Locator;
 
     //constructos
     constructor(page: Page) {
@@ -22,6 +27,11 @@ export class homePage {
         this.btnSearch = this.page.locator("button[class='btn btn-default btn-lg']");
         this.lnkLogout = this.page.locator("a[href='https://tutorialsninja.com/demo/index.php?route=account/logout']");
         this.lnkWishlist = this.page.locator('span:has-text("Wish List")');
+        this.lblFeatured = this.page.locator("div[id='content'] h3");
+        this.lnkFeaturedProducts = this.page.locator("div.caption h4 a");
+        this.btnAddToWishlistFromFeaturedProduct = this.page.locator("div[class='button-group'] button[data-original-title*='Add to Wish List'] i");
+        this.cnfMsg = this.page.locator("div.alert.alert-success");
+        this.lnkWishListPageFromMsg = this.page.locator("div[class*='alert alert-success'] a[href*='route=account/wishlist']");
     }
 
     //action methods
@@ -108,5 +118,67 @@ export class homePage {
         }
     }
 
+    async isFeaturedSectionAvailable(): Promise<boolean> {
+        try {
+            return await this.lblFeatured.isVisible();
+        } catch (error) {
+            console.log(`Exception during Featured label visibility : ${error}`);
+            throw (error);
+        }
+    }
+
+    async isFeaturedProductExists(productName: string): Promise<boolean> {
+        try {
+            const products = await this.lnkFeaturedProducts.all();
+            for (const product of products) {
+                let prodName = await product.textContent();
+                if (prodName?.toLowerCase === productName.toLowerCase) {
+                    return true;
+                }
+            }
+        } catch (error) {
+            console.log(`Exception during Related Product exists : ${error}`);
+            throw (error);
+        }
+        return false;
+    }
+
+    async selectAddToWishListFromFeaturedProduct(productName: string): Promise<null> {
+        try {
+            const products = await this.lnkFeaturedProducts.all();
+            const count = products.length;
+            for (let i = 0; i < count; i++) {
+                let prodName = await products[i].textContent();
+                if (prodName?.toLowerCase() === productName.toLowerCase()) {
+                    await this.btnAddToWishlistFromFeaturedProduct.nth(i).click();
+                }
+            }
+        } catch (error) {
+            console.log(`Error during selecting Product : ${error}`);
+            throw (error);
+        }
+        return null;
+    }
+
+    async isWishlistSuccessMsgVisible(): Promise<boolean> {
+        try {
+            await this.cnfMsg.waitFor({ state: 'visible', timeout: 10000 });
+            let msg: string | null = await this.cnfMsg.textContent();
+            return msg?.includes("wish list") ?? false;
+        } catch (error) {
+            console.log(`Success messsage not found : ${error}`);
+            throw (error);
+        }
+    }
+
+    async navigateWishListPage(): Promise<wishlistPage> {
+        try {
+            await this.lnkWishListPageFromMsg.click();
+            return new wishlistPage(this.page);
+        } catch (error) {
+            console.log(`Exception during navigating to WishList Page : ${error}`);
+            throw (error);
+        }
+    }
 
 }

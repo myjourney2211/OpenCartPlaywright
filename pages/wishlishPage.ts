@@ -41,9 +41,10 @@ export class wishlistPage {
         return false;
     }
 
-    async isMyWishlistPageExists(): Promise<string | null> {
+    async isMyWishlistPageExists(): Promise<boolean> {
         try {
-            return await this.lblMyWishlist.textContent();
+            const label = await this.lblMyWishlist.textContent();
+            return label?.includes("My Wish List") ?? false;
         } catch (error) {
             console.log(`Exception during My Wishlist Page :${error}`);
             throw (error);

@@ -10,7 +10,10 @@
     "test:datadriven": "playwright test --grep @datadriven",
     "test:master:headed": "playwright test --grep @master --headed",
     "test:sanity:debug": "playwright test --grep @sanity --debug",
-    "test:E2E" : "playwright test --grep @E2ETest"
+    "test:E2E" : "playwright test --grep @E2ETest",
+    "test:vj:headed": "playwright test --grep @vj --headed",
+    "test:vj": "playwright test --grep @vj"
+
   },
   "keywords": [],
   "type": "commonjs",

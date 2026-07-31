@@ -1,0 +1,4 @@
+Exception during Product Name Comparison :TimeoutError: locator.textContent: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator('tbody tr td a strong')
+

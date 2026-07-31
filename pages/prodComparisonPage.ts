@@ -18,6 +18,7 @@ export class prodComaparisonPage {
     //methods
     async isProductExists(prodName: string): Promise<boolean> {
         try {
+            await this.lnkproduct.waitFor({ state: 'visible', timeout: 10000 });
             const actualProduct = await this.lnkproduct.textContent();
             return actualProduct?.includes(prodName) ?? false;
         } catch (error) {

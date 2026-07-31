@@ -23,8 +23,8 @@ test.afterEach(async ({ page }) => {
     await page.close();
 })
 
-test("Product Add To Cart Test @master @regression", async ({ page }) => {
-    await home.enterProductName(config.productName2);
+test("Product Add To Cart Test @master @regression @vj", async ({ page }) => {
+    await home.enterProductName(config.productName1);
     await home.clickSearch();
 
     expect(await search.isSearchResultsPageExists()).toBeTruthy();
@@ -32,7 +32,7 @@ test("Product Add To Cart Test @master @regression", async ({ page }) => {
     expect(await search.isProductExists(config.productName2)).toBeTruthy();
 
     if (await search.isProductExists(config.productName2)) {
-        let prod: productPage | null = await search.selectProduct(config.productName2);
+        let prod = await search.selectProduct(config.productName2);
 
         await prod?.setQuantity(config.productQuantity2);
 
