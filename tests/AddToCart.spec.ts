@@ -7,7 +7,7 @@ import { productPage } from "../pages/productPage";
 let config: TestConfig;
 let home: homePage;
 let search: searchResultPage;
-//let prod: productPage;
+let prod: productPage;
 
 test.beforeEach(async ({ page }) => {
     config = new TestConfig();
@@ -15,7 +15,7 @@ test.beforeEach(async ({ page }) => {
 
     home = new homePage(page);
     search = new searchResultPage(page);
-    //prod = new productPage(page);
+    prod = new productPage(page);
 })
 
 test.afterEach(async ({ page }) => {
@@ -24,22 +24,24 @@ test.afterEach(async ({ page }) => {
 })
 
 test("Product Add To Cart Test @master @regression @vj", async ({ page }) => {
-    await home.enterProductName(config.productName1);
+    await home.enterProductName(config.productName2);
     await home.clickSearch();
 
     expect(await search.isSearchResultsPageExists()).toBeTruthy();
 
+    await search.selectListView();
+
     expect(await search.isProductExists(config.productName2)).toBeTruthy();
 
     if (await search.isProductExists(config.productName2)) {
-        let prod = await search.selectProduct(config.productName2);
+        await search.selectProduct(config.productName2);
 
-        await prod?.setQuantity(config.productQuantity2);
+        await prod.setQuantity(config.productQuantity2);
 
-        await prod?.addToCart();
+        await prod.addToCart();
 
-        await page.waitForTimeout(3000);
+        //await page.waitForTimeout(3000);
 
-        expect(await prod?.isSuccessMsgVisible()).toBeTruthy();
+        expect(await prod.isSuccessMsgVisible()).toBeTruthy();
     }
 });

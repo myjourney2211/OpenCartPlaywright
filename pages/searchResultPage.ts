@@ -59,7 +59,7 @@ export class searchResultPage {
         }
     }
 
-    async selectProduct(productName: string): Promise<productPage | null> {
+    async selectProduct(productName: string): Promise<productPage> {
         try {
             const products = await this.searchProducts.all();
             for (const product of products) {
@@ -69,11 +69,12 @@ export class searchResultPage {
                     return new productPage(this.page);
                 }
             }
+            throw new Error(`Product not found: ${productName}`);
         } catch (error) {
             console.log(`Error during selecting Product : ${error}`);
             throw (error);
         }
-        return null;
+        //return false;
     }
 
     async selectlistViewProductComapre(productName: string): Promise<null> {

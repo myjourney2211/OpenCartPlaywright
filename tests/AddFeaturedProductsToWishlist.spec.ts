@@ -37,7 +37,7 @@ test.afterEach(async ({ page }) => {
     await page.close();
 })
 
-test("Add Related Products Test @sanity @master", async ({ page }) => {
+test("Add Featured Products Test @sanity @master", async ({ page }) => {
     await home.clickMyAccount();
     await home.clickLogin();
 

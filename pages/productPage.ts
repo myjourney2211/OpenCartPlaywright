@@ -50,7 +50,7 @@ export class productPage {
     }
 
     //methods
-    async setQuantity(qty: string) {
+    async setQuantity(qty: string): Promise<void> {
         try {
             await this.txtQuantity.clear();
             await this.txtQuantity.fill(qty);
@@ -63,7 +63,13 @@ export class productPage {
     async addToCart(): Promise<void> {
         try {
             await this.btnAddToCart.waitFor({ state: 'visible', timeout: 10000 });
-            await this.btnAddToCart.click();
+            const [response] = await Promise.all([
+                this.page.waitForResponse(
+                    resp => resp.url().includes('route=checkout/cart/add') && resp.status() === 200,
+                    { timeout: 10000 }
+                ),
+                this.btnAddToCart.click(),
+            ]);
         } catch (error) {
             console.log(`Error during click of Add To Cart : ${error}`);
             throw (error);
@@ -72,12 +78,11 @@ export class productPage {
 
     async isSuccessMsgVisible(): Promise<boolean> {
         try {
-            await this.cnfMsg.waitFor({ state: 'visible', timeout: 10000 });
-            const msg: string | null = await this.cnfMsg.textContent();
+            const msg = await this.cnfMsg.evaluate(el => el.textContent, { timeout: 10000 });
+            console.log(msg);
             return msg?.includes("Success: You have added") ?? false;
         } catch (error) {
-            console.log(`Success messsage not found : ${error}`);
-            //throw (error);
+            console.log(`Success message not found : ${error}`);
             return false;
         }
     }

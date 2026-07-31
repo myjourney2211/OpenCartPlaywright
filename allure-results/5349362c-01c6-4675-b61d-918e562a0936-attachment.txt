@@ -1,0 +1,4 @@
+Error duting updating Quantity in Product Page : TimeoutError: locator.clear: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator('#input-quantity')
+

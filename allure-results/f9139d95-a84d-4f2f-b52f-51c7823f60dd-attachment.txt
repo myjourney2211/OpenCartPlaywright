@@ -1,0 +1,6 @@
+✅ Registration is Successfull
+✅ Logout Successfull
+✅ Login Successfull
+Success: You have added iPod Nano to your shopping cart!×
+✅ Product Added to Cart Successfull
+✅ Cart contents are Verified

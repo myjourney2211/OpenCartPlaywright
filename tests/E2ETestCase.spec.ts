@@ -37,7 +37,7 @@ let regisPg: registrationPage;
 let searchPg: searchResultPage;
 let shoppingCartPg: shoppingCartPage | undefined;
 let checkOUTpg: checkOutPage;
-let productPg: productPage | null;
+let productPg: productPage;
 
 //Hooks
 test.beforeEach(async ({ page }) => {
@@ -99,22 +99,24 @@ test("End To End Test @master @E2ETest @vj", async ({ page }) => {
 
     expect(await searchPg.isSearchResultsPageExists()).toBe(true);
 
+    await searchPg.selectListView();
+
     expect(await searchPg.isProductExists(prod)).toBeTruthy();
 
     productPg = await searchPg.selectProduct(prod);
 
     let qty = config.productQuantity2;
-    await productPg?.setQuantity(qty);
-    await productPg?.addToCart();
+    await productPg.setQuantity(qty);
+    await productPg.addToCart();
 
-    await page.waitForTimeout(3000);
+    //await page.waitForTimeout(3000);
 
-    expect(await productPg?.isSuccessMsgVisible()).toBeTruthy();
+    expect(await productPg.isSuccessMsgVisible()).toBeTruthy();
     console.log("✅ Product Added to Cart Successfull");
 
     // ✅ Verify cart contents
-    await productPg?.clickItemsToNavigate();
-    shoppingCartPg = await productPg?.clickViewCart();
+    await productPg.clickItemsToNavigate();
+    shoppingCartPg = await productPg.clickViewCart();
 
     expect(await shoppingCartPg?.isViewCartPageLoaded()).toBeTruthy();
 

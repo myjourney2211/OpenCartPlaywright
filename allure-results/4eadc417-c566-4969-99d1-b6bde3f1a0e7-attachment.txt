@@ -1,0 +1,1 @@
+Error during click of Add To Cart : TimeoutError: page.waitForResponse: Timeout 10000ms exceeded while waiting for event "response"
