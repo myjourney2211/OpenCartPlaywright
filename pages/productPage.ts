@@ -27,7 +27,7 @@ export class productPage {
         //Initialize the locators with CSS selectors
         this.txtQuantity = page.locator("#input-quantity");
         this.btnAddToCart = page.locator("#button-cart");
-        this.cnfMsg = page.locator("div.alert.alert-success.alert-dismissible");
+        this.cnfMsg = page.locator("div.alert.alert-success");
         this.btnItems = page.locator("div#cart");
         this.lnkViewCart = page.locator("strong:has-text('View Cart')");
         this.btnCompareProduct = page.locator("#product-product div.btn-group button:nth-child(2)");
@@ -62,11 +62,13 @@ export class productPage {
 
     async isSuccessMsgVisible(): Promise<boolean> {
         try {
-            let msg: string | null = await this.cnfMsg.textContent();
+            await this.cnfMsg.waitFor({ state: 'visible', timeout: 10000 });
+            const msg: string | null = await this.cnfMsg.textContent();
             return msg?.includes("Success: You have added") ?? false;
         } catch (error) {
             console.log(`Success messsage not found : ${error}`);
-            throw (error);
+            //throw (error);
+            return false;
         }
     }
 

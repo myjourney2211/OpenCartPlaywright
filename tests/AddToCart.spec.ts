@@ -38,6 +38,8 @@ test("Product Add To Cart Test @master @regression", async ({ page }) => {
 
         await prod?.addToCart();
 
+        await page.waitForTimeout(3000);
+
         expect(await prod?.isSuccessMsgVisible()).toBeTruthy();
     }
 });

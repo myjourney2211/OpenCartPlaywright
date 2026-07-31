@@ -1,0 +1,4 @@
+Exception during click of Compare Product : Error: locator.click: Target page, context or browser has been closed
+Call log:
+  - waiting for locator('#product-product div.btn-group button:nth-child(2)')
+

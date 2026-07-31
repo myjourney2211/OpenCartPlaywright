@@ -1,0 +1,13 @@
+Error during Product Comparison page navigation : Error: locator.click: Target page, context or browser has been closed
+Call log:
+  - waiting for locator('div[class=\'product-layout product-list col-xs-12\'] button:nth-child(3)').first()
+    - locator resolved to <button title="" type="button" data-toggle="tooltip" onclick="compare.add('36');" data-original-title="Compare this Product">…</button>
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+    - element is not stable
+  - retrying click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+    - done scrolling
+
