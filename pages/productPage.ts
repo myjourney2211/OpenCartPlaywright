@@ -24,29 +24,31 @@ export class productPage {
     private readonly lnkRelatedProducts: Locator;
     private readonly btnAddToWishlistFromRelateProduct: Locator;
     private readonly lnkWishListPage: Locator;
+    private readonly lnkShoppingCartPage : Locator;
 
     //constructor
     constructor(page: Page) {
         this.page = page;
 
         //Initialize the locators with CSS selectors
-        this.txtQuantity = page.locator("#input-quantity");
-        this.btnAddToCart = page.locator("#button-cart");
-        this.cnfMsg = page.locator("div.alert.alert-success");
-        this.btnItems = page.locator("div#cart");
-        this.lnkViewCart = page.locator("strong:has-text('View Cart')");
-        this.btnCompareProduct = page.locator("#product-product div.btn-group button:nth-child(2)");
-        this.lnkComaprisonPage = page.locator("div.alert.alert-success.alert-dismissible a[href*='route=product/compare']");
-        this.txtProductName = page.locator("div#content h1");
-        this.txtBrand = page.locator("a[href*='route=product/manufacturer/info&manufacturer_id']");
-        this.txtProductCode = page.getByText('Product Code');
-        this.txtPrice = page.locator("ul.list-unstyled li h2");
-        this.txtExclTaxPrice = page.getByText('Ex Tax');
-        this.txtAvailability = page.getByText('Availability');
-        this.lblRelatedProductSection = page.getByText('Related Products');
-        this.lnkRelatedProducts = page.locator("div.caption h4 a");
-        this.btnAddToWishlistFromRelateProduct = page.locator("div[class='button-group'] button[data-original-title*='Add to Wish List'] i");
-        this.lnkWishListPage = page.locator("div[class*='alert alert-success'] a[href*='route=account/wishlist']");
+        this.txtQuantity = this.page.locator("#input-quantity");
+        this.btnAddToCart = this.page.locator("#button-cart");
+        this.cnfMsg = this.page.locator("div.alert.alert-success");
+        this.btnItems = this.page.locator("div#cart");
+        this.lnkViewCart = this.page.locator("strong:has-text('View Cart')");
+        this.btnCompareProduct = this.page.locator("#product-product div.btn-group button:nth-child(2)");
+        this.lnkComaprisonPage = this.page.locator("div.alert.alert-success.alert-dismissible a[href*='route=product/compare']");
+        this.txtProductName = this.page.locator("div#content h1");
+        this.txtBrand = this.page.locator("a[href*='route=product/manufacturer/info&manufacturer_id']");
+        this.txtProductCode = this.page.getByText('Product Code');
+        this.txtPrice = this.page.locator("ul.list-unstyled li h2");
+        this.txtExclTaxPrice = this.page.getByText('Ex Tax');
+        this.txtAvailability = this.page.getByText('Availability');
+        this.lblRelatedProductSection = this.page.getByText('Related Products');
+        this.lnkRelatedProducts = this.page.locator("div.caption h4 a");
+        this.btnAddToWishlistFromRelateProduct = this.page.locator("div[class='button-group'] button[data-original-title*='Add to Wish List'] i");
+        this.lnkWishListPage = this.page.locator("div[class*='alert alert-success'] a[href*='route=account/wishlist']");
+        this.lnkShoppingCartPage = this.page.locator("div#product-product a[href*='route=checkout/cart']");
     }
 
     //methods
@@ -79,7 +81,6 @@ export class productPage {
     async isSuccessMsgVisible(): Promise<boolean> {
         try {
             const msg = await this.cnfMsg.evaluate(el => el.textContent, { timeout: 10000 });
-            console.log(msg);
             return msg?.includes("Success: You have added") ?? false;
         } catch (error) {
             console.log(`Success message not found : ${error}`);
@@ -259,6 +260,16 @@ export class productPage {
             return new wishlistPage(this.page);
         } catch (error) {
             console.log(`Exception during navigating to WishList Page : ${error}`);
+            throw (error);
+        }
+    }
+    //Shopping cart from Success Message after Add to Cart
+        async clickShoppingCartLink(): Promise<shoppingCartPage> {
+        try {
+            await this.lnkShoppingCartPage.click();
+            return new shoppingCartPage(this.page);
+        } catch (error) {
+            console.log(`Error during Click of Shoppingcart from Success message : ${error}`);
             throw (error);
         }
     }

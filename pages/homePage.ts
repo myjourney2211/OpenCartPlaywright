@@ -1,5 +1,6 @@
-import { Page, Locator } from "@playwright/test";
+import { Page, Locator, expect } from "@playwright/test";
 import { wishlistPage } from "./wishlishPage";
+import { shoppingCartPage } from "./shoppingCartPage";
 
 export class homePage {
     //variables
@@ -16,6 +17,8 @@ export class homePage {
     private readonly btnAddToWishlistFromFeaturedProduct: Locator;
     private readonly cnfMsg: Locator;
     private readonly lnkWishListPageFromMsg: Locator;
+    private readonly lnkCheckout: Locator;
+    private readonly btnShoppingCart: Locator;
 
     //constructos
     constructor(page: Page) {
@@ -32,6 +35,8 @@ export class homePage {
         this.btnAddToWishlistFromFeaturedProduct = this.page.locator("div[class='button-group'] button[data-original-title*='Add to Wish List'] i");
         this.cnfMsg = this.page.locator("div.alert.alert-success");
         this.lnkWishListPageFromMsg = this.page.locator("div[class*='alert alert-success'] a[href*='route=account/wishlist']");
+        this.lnkCheckout = this.page.locator(".fa.fa-share");
+        this.btnShoppingCart = this.page.locator(".btn.btn-inverse.btn-block.btn-lg.dropdown-toggle span#cart-total");
     }
 
     //action methods
@@ -177,6 +182,30 @@ export class homePage {
             return new wishlistPage(this.page);
         } catch (error) {
             console.log(`Exception during navigating to WishList Page : ${error}`);
+            throw (error);
+        }
+    }
+
+    async isShoppingCartEmpty(): Promise<boolean> {
+        try {
+            const cartMsg = await this.btnShoppingCart.textContent();
+            if (cartMsg === "0 item(s) - $0.00") {
+                return true;
+            }
+        } catch (error) {
+            console.log(`Exception during reading Shopping Cart item count:${error}`);
+            throw (error);
+        }
+        return false;
+    }
+
+    async clickCheckout() {
+        try {
+            await this.lnkCheckout.waitFor({ state: "visible", timeout: 10000 });
+            await this.lnkCheckout.click();
+            return new shoppingCartPage(this.page);
+        } catch (error) {
+            console.log(`Exception during click of Checkout link : ${error}`);
             throw (error);
         }
     }
