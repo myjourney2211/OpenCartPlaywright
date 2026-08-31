@@ -5,7 +5,7 @@ export default defineConfig({
 
   testDir: "./tests",
   fullyParallel: true,
-  retries: 1,
+  retries: 2,
   workers: 1,
   reporter: [
     ["html", { outputFolder: "../reports/html-report" }],

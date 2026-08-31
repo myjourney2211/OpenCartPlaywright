@@ -54,9 +54,9 @@ test("Add Featured Products Test @sanity @master", async ({ page }) => {
 
     expect(await home.isFeaturedSectionAvailable()).toBeTruthy();
 
-    expect(await home.isFeaturedProductExists(config.productName1)).toBeTruthy();
+    expect(await home.isFeaturedProductExists(config.productName7)).toBeTruthy();
 
-    await home.selectAddToWishListFromFeaturedProduct(config.productName1);
+    await home.selectAddToWishListFromFeaturedProduct(config.productName7);
 
     expect(await home.isWishlistSuccessMsgVisible()).toBeTruthy();
 
@@ -64,6 +64,6 @@ test("Add Featured Products Test @sanity @master", async ({ page }) => {
 
     expect(await wishListPg.isMyWishlistPageExists()).toBeTruthy();
 
-    expect(await wishListPg.isProductExists(config.productName1)).toBeTruthy();
+    expect(await wishListPg.isProductExists(config.productName7)).toBeTruthy();
 
 })

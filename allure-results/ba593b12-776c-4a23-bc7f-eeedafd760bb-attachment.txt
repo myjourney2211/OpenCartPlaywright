@@ -1,0 +1,5 @@
+✅ Registration is Successfull
+✅ Logout Successfull
+✅ Login Successfull
+✅ Product Added to Cart Successfull
+✅ Cart contents are Verified

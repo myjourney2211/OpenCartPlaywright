@@ -24,5 +24,7 @@ export class TestConfig {
     productName6 = 'Apple Cinema 30"'
 
     productName7 = "HP LP3065"
-    productQuantity7 = "2"
+    productQuantity7 = "1"
+    totalPrice7 = "$122.00"
+
 }

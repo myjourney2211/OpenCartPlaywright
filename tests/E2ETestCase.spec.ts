@@ -26,6 +26,7 @@ import { searchResultPage } from "../pages/searchResultPage";
 import { shoppingCartPage } from "../pages/shoppingCartPage";
 import { checkOutPage } from "../pages/checkOutPage";
 import { productPage } from "../pages/productPage";
+import { orderConfirmationPage } from "../pages/orderConfirmationPage";
 
 
 let config: TestConfig;
@@ -38,6 +39,7 @@ let searchPg: searchResultPage;
 let shoppingCartPg: shoppingCartPage | undefined;
 let checkOUTpg: checkOutPage;
 let productPg: productPage;
+let orderConfPg: orderConfirmationPage;
 
 //Hooks
 test.beforeEach(async ({ page }) => {
@@ -53,6 +55,7 @@ test.beforeEach(async ({ page }) => {
     shoppingCartPg = new shoppingCartPage(page);
     checkOUTpg = new checkOutPage(page);
     productPg = new productPage(page);
+    orderConfPg = new orderConfirmationPage(page);
 })
 
 test.afterEach(async ({ page }) => {
@@ -93,7 +96,7 @@ test("End To End Test @master @E2ETest @vj", async ({ page }) => {
     console.log("✅ Login Successfull");
 
     // 🛒 Search for a product and add it to the shopping cart
-    let prod = config.productName2;
+    let prod = config.productName7;
     await home.enterProductName(prod);
     await home.clickSearch();
 
@@ -105,7 +108,7 @@ test("End To End Test @master @E2ETest @vj", async ({ page }) => {
 
     productPg = await searchPg.selectProduct(prod);
 
-    let qty = config.productQuantity2;
+    let qty = config.productQuantity7;
     await productPg.setQuantity(qty);
     await productPg.addToCart();
 
@@ -120,11 +123,51 @@ test("End To End Test @master @E2ETest @vj", async ({ page }) => {
 
     expect(await shoppingCartPg?.isViewCartPageLoaded()).toBeTruthy();
 
-    expect(await shoppingCartPg?.getTotalPriceOfCart()).toBe(config.totalPrice2);
+    expect(await shoppingCartPg?.getTotalPriceOfCart()).toBe(config.totalPrice7);
     console.log("✅ Cart contents are Verified");
 
-    // ⛔ Attempt checkout (disabled since feature isn't available on demo site)
+    await shoppingCartPg.clickCheckout();
 
+    expect(await checkOUTpg.isCheckOutPageAvailableByHeader()).toBeTruthy();
+
+    //await checkOUTpg.selectNewAddress();
+
+    await checkOUTpg.setFirstName(randomDataGenerator.getFirstName());
+
+    await checkOUTpg.setLastName(randomDataGenerator.getLastName());
+
+    await checkOUTpg.setAddress1(randomDataGenerator.getRandomAddress());
+
+    await checkOUTpg.setCity(randomDataGenerator.getRandomCity());
+
+    await checkOUTpg.setPostCode(randomDataGenerator.getRandomPin());
+
+    //await checkOUTpg.setCountry(randomDataGenerator.getRandomCountry());
+    await checkOUTpg.setCountry("Iceland");
+
+    //await checkOUTpg.setState(randomDataGenerator.getRandomState());
+    await checkOUTpg.setState("Austurland");
+
+    await checkOUTpg.selectContinue();
+
+    await checkOUTpg.selectExistingAddress();
+
+    await checkOUTpg.selectContinueDeliveryDetails();
+
+    await checkOUTpg.selectContinueDeliveryMethod();
+
+    await checkOUTpg.checkTermsandCondition();
+
+    await checkOUTpg.selectContinuePaymentMethod();
+
+    await checkOUTpg.selectConfirmOrder();
+
+    expect(await orderConfPg.isOrderConfirmationPageAvailable()).toBeTruthy();
+
+    await orderConfPg.selectContinueButton();
+
+    expect(await home.isHomePageExists()).toBeTruthy();
 });
+
 
 //functionalities

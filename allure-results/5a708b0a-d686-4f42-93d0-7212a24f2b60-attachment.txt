@@ -1,0 +1,7 @@
+✅ Registration is Successfull
+✅ Logout Successfull
+✅ Login Successfull
+Success message not found : TimeoutError: locator.evaluate: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator('div.alert.alert-success')
+

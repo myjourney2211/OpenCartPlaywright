@@ -1,0 +1,9 @@
+✅ Registration is Successfull
+✅ Logout Successfull
+✅ Login Successfull
+✅ Product Added to Cart Successfull
+✅ Cart contents are Verified
+Exception during selection of Existing Address radio button:Error: locator.waitFor: Target page, context or browser has been closed
+Call log:
+  - waiting for locator('label').filter({ hasText: 'I want to use an existing address' }).last() to be visible
+

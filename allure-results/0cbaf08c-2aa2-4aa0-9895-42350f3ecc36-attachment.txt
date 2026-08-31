@@ -1,0 +1,9 @@
+✅ Registration is Successfull
+✅ Logout Successfull
+✅ Login Successfull
+✅ Product Added to Cart Successfull
+✅ Cart contents are Verified
+Exception during selection of New Address radio button:TimeoutError: locator.waitFor: Timeout 15000ms exceeded.
+Call log:
+  - waiting for getByLabel('I want to use a new address') to be visible
+
