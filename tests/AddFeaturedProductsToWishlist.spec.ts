@@ -37,7 +37,7 @@ test.afterEach(async ({ page }) => {
     await page.close();
 })
 
-test("Add Featured Products Test @sanity @master", async ({ page }) => {
+test("Add Featured Products Test @sanity @master @vj", async ({ page }) => {
     await home.clickMyAccount();
     await home.clickLogin();
 
@@ -48,15 +48,17 @@ test("Add Featured Products Test @sanity @master", async ({ page }) => {
 
     expect(await myAccPg.isMyAccountPageExists()).toBeTruthy();
 
+    await page.waitForTimeout(3000);
+
     await myAccPg.clickHome();
 
     expect(await home.isHomePageExists()).toBe(true);
 
     expect(await home.isFeaturedSectionAvailable()).toBeTruthy();
 
-    expect(await home.isFeaturedProductExists(config.productName7)).toBeTruthy();
+    expect(await home.isFeaturedProductExists(config.productName1)).toBeTruthy();
 
-    await home.selectAddToWishListFromFeaturedProduct(config.productName7);
+    await home.selectAddToWishListFromFeaturedProduct(config.productName1);
 
     expect(await home.isWishlistSuccessMsgVisible()).toBeTruthy();
 
@@ -64,6 +66,6 @@ test("Add Featured Products Test @sanity @master", async ({ page }) => {
 
     expect(await wishListPg.isMyWishlistPageExists()).toBeTruthy();
 
-    expect(await wishListPg.isProductExists(config.productName7)).toBeTruthy();
+    expect(await wishListPg.isProductExists(config.productName1)).toBeTruthy();
 
 })
