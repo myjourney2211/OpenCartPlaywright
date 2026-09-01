@@ -27,4 +27,8 @@ export class TestConfig {
     productQuantity7 = "1"
     totalPrice7 = "$122.00"
 
+        productName8 = "MacBook"
+    productQuantity8 = "2"
+    totalPrice8 = "$1204.00"
+
 }
