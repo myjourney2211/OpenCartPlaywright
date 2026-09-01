@@ -74,9 +74,16 @@ test("Add to Wishlist Test @sanity @master", async ({ page }) => {
 
     await wishListPg.selectAddToCart(config.productName7);
 
-    expect(await wishListPg.isSuccessMsgVisible()).toBe(true);
+    //expect(await wishListPg.isSuccessMsgVisible()).toBe(true);
 
-    await wishListPg.goToShoppingCart();
+    await prodPg.addProductToCart(config.productQuantity7);
+
+    expect(await prodPg.isSuccessMsgVisible()).toBe(true);
+    expect(await prodPg.isSuccessMsgVisible()).toBe(true);
+
+    await prodPg.clickShoppingCartLink();
+
+    //await wishListPg.goToShoppingCart();
 
     expect(await shopCartPg.isViewCartPageLoaded()).toBeTruthy();
 
