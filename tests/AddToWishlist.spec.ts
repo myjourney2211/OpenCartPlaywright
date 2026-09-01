@@ -52,7 +52,7 @@ test("Add to Wishlist Test @sanity @master", async ({ page }) => {
 
     expect(await home.isHomePageExists()).toBe(true);
 
-    await home.enterProductName(config.productName1);
+    await home.enterProductName(config.productName9);
 
     await home.clickSearch();
 
@@ -60,9 +60,9 @@ test("Add to Wishlist Test @sanity @master", async ({ page }) => {
 
     await searchPg.selectListView();
 
-    expect(await searchPg.isProductExists(config.productName8)).toBeTruthy();
+    expect(await searchPg.isProductExists(config.productName9)).toBeTruthy();
 
-    await searchPg.clickAddToWishlist(config.productName8);
+    await searchPg.clickAddToWishlist(config.productName9);
 
     expect(await searchPg.isWishListSuccessMsgVisible()).toBe(true);
 
@@ -70,9 +70,9 @@ test("Add to Wishlist Test @sanity @master", async ({ page }) => {
 
     expect(await wishListPg.isMyWishlistPageExists()).toBeTruthy();
 
-    expect(await wishListPg.isProductExists(config.productName8)).toBeTruthy();
+    expect(await wishListPg.isProductExists(config.productName9)).toBeTruthy();
 
-    await wishListPg.selectAddToCart(config.productName8);
+    await wishListPg.selectAddToCart(config.productName9);
 
     expect(await wishListPg.isSuccessMsgVisible()).toBe(true);
 
@@ -80,5 +80,5 @@ test("Add to Wishlist Test @sanity @master", async ({ page }) => {
 
     expect(await shopCartPg.isViewCartPageLoaded()).toBeTruthy();
 
-    expect(await shopCartPg.isProductExists(config.productName8)).toBeTruthy();
+    expect(await shopCartPg.isProductExists(config.productName9)).toBeTruthy();
 })
