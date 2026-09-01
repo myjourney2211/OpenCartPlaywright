@@ -89,3 +89,4 @@ test("Add to Wishlist Test @sanity @master", async ({ page }) => {
 
     expect(await shopCartPg.isProductExists(config.productName7)).toBeTruthy();
 })
+//
