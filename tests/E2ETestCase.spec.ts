@@ -77,7 +77,7 @@ test("End To End Test @master @E2ETest @vj", async ({ page }) => {
 
     let msg: string | null = await regisPg.getConfirmationMsg();
     expect(msg).toContain("Your Account Has Been Created!");
-    console.log("✅ Registration is Successfull");
+    //console.log("✅ Registration is Successfull");
 
     //👋 Logout after registration
     logOUT = await accPG.clickLogout();
@@ -86,14 +86,14 @@ test("End To End Test @master @E2ETest @vj", async ({ page }) => {
 
     home = await logOUT.clickContinue();
     expect(await home.isHomePageExists()).toBe(true);
-    console.log("✅ Logout Successfull");
+    //console.log("✅ Logout Successfull");
 
     // 🔑 Login with the same account
     home.loginPageNavigation();
     accPG = await loginPg.login(email, pwd);
 
     expect(await accPG.isMyAccountPageExists()).toBe(true);
-    console.log("✅ Login Successfull");
+    //console.log("✅ Login Successfull");
 
     // 🛒 Search for a product and add it to the shopping cart
     let prod = config.productName7;
@@ -115,7 +115,7 @@ test("End To End Test @master @E2ETest @vj", async ({ page }) => {
     //await page.waitForTimeout(3000);
 
     expect(await productPg.isSuccessMsgVisible()).toBeTruthy();
-    console.log("✅ Product Added to Cart Successfull");
+    //console.log("✅ Product Added to Cart Successfull");
 
     // ✅ Verify cart contents
     await productPg.clickItemsToNavigate();
@@ -124,7 +124,7 @@ test("End To End Test @master @E2ETest @vj", async ({ page }) => {
     expect(await shoppingCartPg?.isViewCartPageLoaded()).toBeTruthy();
 
     expect(await shoppingCartPg?.getTotalPriceOfCart()).toBe(config.totalPrice7);
-    console.log("✅ Cart contents are Verified");
+    //console.log("✅ Cart contents are Verified");
 
     await shoppingCartPg.clickCheckout();
 
