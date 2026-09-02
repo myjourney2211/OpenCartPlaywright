@@ -1,9 +1,0 @@
-2
-iPhone
-0
-iPhone
-1
-Error during Add To Cart from Wishlist : TimeoutError: locator.click: Timeout 15000ms exceeded.
-Call log:
-  - waiting for locator('td[class=\'text-right\'] button').nth(1)
-

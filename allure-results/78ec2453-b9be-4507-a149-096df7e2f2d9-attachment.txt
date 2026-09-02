@@ -1,9 +1,0 @@
-✅ Registration is Successfull
-✅ Logout Successfull
-✅ Login Successfull
-✅ Product Added to Cart Successfull
-✅ Cart contents are Verified
-Exception during selection of Existing Address radio button:TimeoutError: locator.waitFor: Timeout 10000ms exceeded.
-Call log:
-  - waiting for locator('label').filter({ hasText: 'I want to use an existing address' }).last() to be visible
-

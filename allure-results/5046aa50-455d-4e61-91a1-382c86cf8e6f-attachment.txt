@@ -1,1 +1,0 @@
-Error during Product Comparison page navigation : TypeError: Cannot read properties of undefined (reading 'textContent')

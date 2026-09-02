@@ -1,9 +1,0 @@
-✅ Registration is Successfull
-✅ Logout Successfull
-✅ Login Successfull
-✅ Product Added to Cart Successfull
-✅ Cart contents are Verified
-Exception occured while clicking Continue :TimeoutError: locator.click: Timeout 15000ms exceeded.
-Call log:
-  - waiting for locator('button-payment-method')
-

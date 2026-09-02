@@ -1,7 +1,0 @@
-Exception Occured while clicking 'Wishlist' : Error: locator.click: Error: strict mode violation: locator('.fa.fa-heart') resolved to 2 elements:
-    1) <i class="fa fa-heart"></i> aka getByRole('link', { name: ' Wish List (3)' })
-    2) <i class="fa fa-heart"></i> aka getByRole('button', { description: 'Add to Wish List', exact: true })
-
-Call log:
-  - waiting for locator('.fa.fa-heart')
-

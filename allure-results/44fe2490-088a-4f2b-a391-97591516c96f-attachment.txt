@@ -1,3 +1,0 @@
-✅ Registration is Successfull
-✅ Logout Successfull
-✅ Login Successfull

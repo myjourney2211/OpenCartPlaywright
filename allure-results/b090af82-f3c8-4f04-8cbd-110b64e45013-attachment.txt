@@ -1,6 +1,0 @@
-✅ Registration is Successfull
-✅ Logout Successfull
-✅ Login Successfull
-✅ Product Added to Cart Successfull
-✅ Cart contents are Verified
-Exception occured while selecting State :Error: page.waitForTimeout: Target page, context or browser has been closed

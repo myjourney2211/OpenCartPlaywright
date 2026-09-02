@@ -1,7 +1,0 @@
-Exception Occured while clicking 'My Account' : TimeoutError: locator.click: Timeout 15000ms exceeded.
-Call log:
-  - waiting for locator('a[title=\'My Account\']')
-    - locator resolved to <a title="My Account" data-toggle="dropdown" class="dropdown-toggle" href="https://tutorialsninja.com/demo/index.php?route=account/account">…</a>
-  - attempting click action
-    - waiting for element to be visible, enabled and stable
-

@@ -1,8 +1,0 @@
-✅ Registration is Successfull
-✅ Logout Successfull
-✅ Login Successfull
-Alert became visible at: 1785503530536
-Alert text captured: Success: You have added iPod Nano to your shopping cart!
-×
-✅ Product Added to Cart Successfull
-✅ Cart contents are Verified

@@ -1,7 +1,0 @@
-✅ Registration is Successfull
-✅ Logout Successfull
-✅ Login Successfull
-Success messsage not found : Error: locator.textContent: Target page, context or browser has been closed
-Call log:
-  - waiting for locator('div.alert.alert-success.alert-dismissible')
-

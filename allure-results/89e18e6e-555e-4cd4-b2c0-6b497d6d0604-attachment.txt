@@ -1,6 +1,0 @@
-iPod Nano
-Apple
-Exception while getting Product Code: Error: locator.textContent: Unexpected token "getByText(" while parsing css selector "page.getByText('Product Code')". Did you mean to CSS.escape it?
-Call log:
-  - waiting for page.getByText('Product Code')
-
